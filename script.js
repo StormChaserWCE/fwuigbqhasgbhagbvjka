@@ -12,6 +12,19 @@ window.addEventListener('load', () => {
 
   let pins = [];
   let userMarker;
+  let customIconUrl = null;
+  document.getElementById('iconUpload').addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    customIconUrl = event.target.result;
+    alert('Custom icon loaded!');
+  };
+  reader.readAsDataURL(file);
+});
+
 
   // 📌 Pin icon (red)
   const pinIcon = L.icon({
@@ -31,7 +44,14 @@ window.addEventListener('load', () => {
   function drawPins() {
     pins.forEach(p => {
       if (!p.marker) {
-        p.marker = L.marker([p.lat, p.lng], { icon: pinIcon }).addTo(map);
+      const icon = customIconUrl ? L.icon({
+  iconUrl: customIconUrl,
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+}) : pinIcon;
+
+p.marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
         p.marker.bindPopup(`<b>${p.name || 'Pin'}</b>`);
       }
     });
