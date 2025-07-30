@@ -1,0 +1,19 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+h1 {
+  text-align: center;
+  margin: 0.5em 0;
+}
+#map {
+  width: 100%;
+  height: calc(100% - 60px);
+}
+button {
+  margin: 5px;
+  padding: 8px 12px;
+  font-size: 1em;
+}
